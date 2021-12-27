@@ -57,11 +57,9 @@ const Home = () => {
           </svg>
         </div>
       </div>
-
       {/* TODO to fetch all the results and display them inside the card */}
       {/* TODO to add link to take them to the other page */}
       {/* CREATE a book page */}
-
       <div className="-mt-24 p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         <div className="rounded overflow-hidden shadow-lg">
           <img
