@@ -4,8 +4,8 @@ import { AnimatePresence } from 'framer-motion';
 import UseScrollToTop from 'hooks/useScrollToTop';
 import ScrollToTop from 'components/utils/scrollToTop';
 import Footer from 'components/Layouts/Footer';
-import AppContext from 'AppContext';
 import RoutesApp from 'components/App';
+import AppContext from 'AppContext';
 import { IBooks } from 'interfaces/books';
 
 function App() {
@@ -17,6 +17,10 @@ function App() {
 	const [books, setBooks] = React.useState<null | IBooks[]>(null);
 
 	const API_KEY = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
+
+	// TODO add pagination
+	// TODO add search
+	// TODO add sort
 
 	// useEffect to fetch all the books
 	React.useEffect(() => {
