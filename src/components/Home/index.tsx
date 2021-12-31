@@ -1,9 +1,10 @@
 import React from 'react';
 import AppContext from 'AppContext';
+// UI-Elements
+import Card from 'components/UI-Elements/Card';
 
 const Home = () => {
 	const { books } = React.useContext(AppContext);
-	console.log('books', books);
 	return (
 		<div>
 			<div
@@ -65,85 +66,33 @@ const Home = () => {
 			{/* TODO to add link to take them to the other page */}
 			{/* CREATE a book page */}
 			<div className="-mt-24 p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-				<div className="rounded overflow-hidden shadow-lg">
-					<img
-						className="w-full"
-						src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-						alt="Mountain"
-					/>
-					<div className="px-6 py-4">
-						<div className="font-bold text-xl mb-2">Mountain</div>
-						<p className="text-gray-700 text-base">
-							Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit. Voluptatibus quia, Nonea! Maiores et
-							perferendis eaque, exercitationem praesentium nihil.
-						</p>
-					</div>
-					<div className="px-6 pt-4 pb-2">
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#photography
-						</span>
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#travel
-						</span>
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#winter
-						</span>
-					</div>
-				</div>
-				<div className="rounded overflow-hidden shadow-lg">
-					<img
-						className="w-full"
-						src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-						alt="River"
-					/>
-					<div className="px-6 py-4">
-						<div className="font-bold text-xl mb-2">River</div>
-						<p className="text-gray-700 text-base">
-							Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit. Voluptatibus quia, Nonea! Maiores et
-							perferendis eaque, exercitationem praesentium nihil.
-						</p>
-					</div>
-					<div className="px-6 pt-4 pb-2">
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#photography
-						</span>
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#travel
-						</span>
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#summer
-						</span>
-					</div>
-				</div>
-
-				<div className="rounded overflow-hidden shadow-lg">
-					<img
-						className="w-full"
-						src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-						alt="Forest"
-					/>
-					<div className="px-6 py-4">
-						<div className="font-bold text-xl mb-2">Forest</div>
-						<p className="text-gray-700 text-base">
-							Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit. Voluptatibus quia, Nonea! Maiores et
-							perferendis eaque, exercitationem praesentium nihil.
-						</p>
-					</div>
-					<div className="px-6 pt-4 pb-2">
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#photography
-						</span>
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#travel
-						</span>
-						<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							#fall
-						</span>
-					</div>
-				</div>
+				<Card
+					title="The Alchemist"
+					author="River"
+					description="The Alchemist is a novel by Brazilian author Paulo Coelho. It is regarded as one of the most important Brazilian works of modern times. The book was first published in 1988 and has sold over one million copies."
+					image="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+					tags={['photography', 'travel', 'winter']}
+					id={1}
+					type="book"
+				/>
+				<Card
+					title="The Alchemist"
+					author="Paulo Coelho"
+					description="The Alchemist is a novel by Brazilian author Paulo Coelho. It is regarded as one of the most important Brazilian works of modern times. The book was first published in 1988 and has sold over one million copies."
+					image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+					tags={['photography', 'travel', 'winter']}
+					id={2}
+					type="book"
+				/>
+				<Card
+					title="The Alchemist"
+					author="River"
+					description="The Alchemist is a novel by Brazilian author Paulo Coelho. It is regarded as one of the most important Brazilian works of modern times. The book was first published in 1988 and has sold over one million copies."
+					image="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+					tags={['photography', 'travel', 'winter']}
+					id={3}
+					type="book"
+				/>
 			</div>
 		</div>
 	);
