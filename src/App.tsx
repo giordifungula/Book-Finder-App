@@ -1,32 +1,67 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import About from 'components/About';
-import Contact from 'components/Contact';
-import Home from 'components/Home';
-import Header from 'components/Layouts/Header';
 import UseScrollToTop from 'hooks/useScrollToTop';
 import ScrollToTop from 'components/utils/scrollToTop';
 import Footer from 'components/Layouts/Footer';
+import AppContext from 'AppContext';
+import RoutesApp from 'components/App';
+import { IBooks } from 'interfaces/books';
 
 function App() {
-  return (
-    <AnimatePresence>
-      <div className=" bg-secondary-light dark:bg-primary-dark transition duration-300">
-        <Router>
-          <Header />
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </Router>
-        <Footer />
-        <UseScrollToTop />
-      </div>
-    </AnimatePresence>
-  );
+	// set is loading state to false
+	const [isLoading, setIsLoading] = React.useState(false);
+	// set query state to empty string
+	const [query, setQuery] = React.useState<null | string>(null);
+	// set books array to empty array
+	const [books, setBooks] = React.useState<null | IBooks[]>(null);
+
+	const API_KEY = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
+
+	// useEffect to fetch all the books
+	React.useEffect(() => {
+		// set is loading state to true
+		setIsLoading(true);
+		// fetch all the books
+		fetch(
+			`https://www.googleapis.com/books/v1/volumes?q=adam-grant&orderBy=newest&maxResults=40&projection=full&startIndex=0&key=${API_KEY}`,
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				// set is loading state to false
+				setIsLoading(false);
+				// set books state to the data
+				setBooks(data);
+			})
+			.catch((error) => {
+				// set is loading state to false
+				setIsLoading(false);
+				// set books state to empty array
+				setBooks([]);
+			});
+	}, []);
+
+	return (
+		<AnimatePresence>
+			<div className="bg-secondary-light dark:bg-primary-dark transition duration-300">
+				<Router>
+					<ScrollToTop />
+					<AppContext.Provider
+						value={{
+							isLoading,
+							query,
+							books,
+							setQuery,
+						}}
+					>
+						<RoutesApp />
+					</AppContext.Provider>
+				</Router>
+				<Footer />
+				<UseScrollToTop />
+			</div>
+		</AnimatePresence>
+	);
 }
 
 export default App;
