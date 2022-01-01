@@ -4,7 +4,7 @@ import AppContext from 'AppContext';
 import Card from 'components/UI-Elements/Card';
 
 const Home = () => {
-	const { books } = React.useContext(AppContext);
+	const { books, query, isLoading } = React.useContext(AppContext);
 	return (
 		<div>
 			<div
@@ -42,58 +42,43 @@ const Home = () => {
 						</div>
 					</div>
 				</div>
-				<div
-					className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-					style={{ height: '40px' }}
-				>
-					<svg
-						className="absolute bottom-0 overflow-hidden"
-						xmlns="http://www.w3.org/2000/svg"
-						preserveAspectRatio="none"
-						version="1.1"
-						viewBox="0 0 2560 100"
-						x="0"
-						y="0"
-					>
-						<polygon
-							className="text-gray-300 fill-current"
-							points="2560 0 2560 100 0 100"
-						></polygon>
-					</svg>
-				</div>
 			</div>
-			{/* TODO to fetch all the results and display them inside the card */}
 			{/* TODO to add link to take them to the other page */}
 			{/* CREATE a book page */}
-			<div className="-mt-24 p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-				<Card
-					title="The Alchemist"
-					author="River"
-					description="The Alchemist is a novel by Brazilian author Paulo Coelho. It is regarded as one of the most important Brazilian works of modern times. The book was first published in 1988 and has sold over one million copies."
-					image="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-					tags={['photography', 'travel', 'winter']}
-					id={1}
-					type="book"
-				/>
-				<Card
-					title="The Alchemist"
-					author="Paulo Coelho"
-					description="The Alchemist is a novel by Brazilian author Paulo Coelho. It is regarded as one of the most important Brazilian works of modern times. The book was first published in 1988 and has sold over one million copies."
-					image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-					tags={['photography', 'travel', 'winter']}
-					id={2}
-					type="book"
-				/>
-				<Card
-					title="The Alchemist"
-					author="River"
-					description="The Alchemist is a novel by Brazilian author Paulo Coelho. It is regarded as one of the most important Brazilian works of modern times. The book was first published in 1988 and has sold over one million copies."
-					image="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-					tags={['photography', 'travel', 'winter']}
-					id={3}
-					type="book"
-				/>
+			<div className="-mt-5 p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+				{isLoading === false &&
+					books &&
+					books.items.map((book) => (
+						<Card
+							title={book.volumeInfo.title}
+							authors={book.volumeInfo?.authors}
+							description={book.volumeInfo.description}
+							image={book.volumeInfo.imageLinks?.thumbnail}
+							tags={book.volumeInfo.categories}
+							id={book.id}
+							type="book"
+						/>
+					))}
 			</div>
+			{query === '' ? (
+				<div className="text-center mt-10">
+					<h1 className="text-gray-500 text-xl">
+						No results found {query} Please try and search again
+					</h1>
+				</div>
+			) : null}
+			{isLoading === true ? (
+				<div className="flex justify-center items-center">
+					<div
+						className="spinner-border w-100 border-15 border-black bg-indigo-800 animate-spin inline-block w-8 h-8 border-4 rounded-full"
+						role="status"
+					>
+						<span className="visually-hidden text-white text-lg">
+							Loading...
+						</span>
+					</div>
+				</div>
+			) : null}
 		</div>
 	);
 };
