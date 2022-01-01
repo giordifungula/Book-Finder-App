@@ -7,8 +7,8 @@ export interface ICardProps {
 	description: string;
 	tags?: string[];
 	image: string;
-	author?: string;
-	id: number;
+	authors?: string[];
+	id: string;
 	type: string;
 }
 
@@ -17,23 +17,29 @@ const Card = ({
 	description,
 	tags,
 	image,
-	author,
+	authors,
 	id,
 	type,
 }: ICardProps) => {
 	// TODO to add a link to go to book page/route
 	return (
 		<Link to={`/${type}/${id}`}>
-			<div className="cursor-pointer rounded  overflow-hidden shadow-lg">
-				<img className="w-full" src={image} alt={title} />
+			<div className="cursor-pointer hover:animate-pulse rounded bg-gray-100 overflow-hidden shadow-lg">
+				<img className="w-96 rounded m-auto" src={image} alt={title} />
 				<div className="px-6 py-4">
-					<div className="font-bold text-xl mb-2 text-gray-600">
-						{author && author}
-					</div>
+					{authors &&
+						authors.map((author) => (
+							<div className="font-bold text-xl mb-2 text-gray-600">
+								{author}
+							</div>
+						))}
+
 					<div className="font-bold text-md mb-2 text-indigo-400 decoration-zinc-50">
 						{title}
 					</div>
-					<p className="text-gray-700 text-base">{description}</p>
+					<p className="text-gray-700 text-base overflow-hidden whitespace-nowrap overflow-ellipsis">
+						{description}
+					</p>
 				</div>
 				<div className="px-6 pt-4 pb-2">
 					{tags &&

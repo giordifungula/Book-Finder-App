@@ -12,9 +12,13 @@ function App() {
 	// set is loading state to false
 	const [isLoading, setIsLoading] = React.useState(false);
 	// set query state to empty string
-	const [query, setQuery] = React.useState<null | string>(null);
+	const [query, setQuery] = React.useState<null | string>('rich dad');
 	// set books array to empty array
-	const [books, setBooks] = React.useState<null | IBooks[]>(null);
+	const [books, setBooks] = React.useState<null | IBooks>(null);
+
+	console.log('query in APP', query);
+
+	// TODO set error also
 
 	const API_KEY = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
 
@@ -23,27 +27,49 @@ function App() {
 	// TODO add sort
 
 	// useEffect to fetch all the books
+	// React.useEffect(() => {
+	// 	// set is loading state to true
+	// 	setIsLoading(true);
+	// 	// fetch all the books
+	// 	fetch(
+	// 		`https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=newest&maxResults=6&startIndex=0&key=${API_KEY}`,
+	// 	)
+	// 		.then((response) => response.json())
+	// 		.then((data) => {
+	// 			// set is loading state to false
+	// 			setIsLoading(false);
+	// 			// set books state to the data
+	// 			setBooks(data);
+	// 		})
+	// 		.catch((error) => {
+	// 			// set is loading state to false
+	// 			setIsLoading(false);
+	// 			// set books state to empty array
+	// 			setBooks(null);
+	// 		});
+	// }, [query]);
+
+	const fetchBooks = async (query: string) => {
+		// fetch all books with async await
+		try {
+			setIsLoading(true);
+			const response = await fetch(
+				`https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=newest&maxResults=6&startIndex=0&key=${API_KEY}`,
+			);
+			const data = await response.json();
+			console.log('data inside fetch data func', data);
+			// set books state to the data
+			setBooks(data);
+			setIsLoading(false);
+		} catch (error) {
+			console.log('error', error);
+			setIsLoading(false);
+		}
+	};
+
 	React.useEffect(() => {
-		// set is loading state to true
-		setIsLoading(true);
-		// fetch all the books
-		fetch(
-			`https://www.googleapis.com/books/v1/volumes?q=adam-grant&orderBy=newest&maxResults=40&projection=full&startIndex=0&key=${API_KEY}`,
-		)
-			.then((response) => response.json())
-			.then((data) => {
-				// set is loading state to false
-				setIsLoading(false);
-				// set books state to the data
-				setBooks(data);
-			})
-			.catch((error) => {
-				// set is loading state to false
-				setIsLoading(false);
-				// set books state to empty array
-				setBooks([]);
-			});
-	}, []);
+		if (query) fetchBooks(query);
+	}, [query]);
 
 	return (
 		<AnimatePresence>
@@ -56,6 +82,7 @@ function App() {
 							query,
 							books,
 							setQuery,
+							setIsLoading,
 						}}
 					>
 						<RoutesApp />

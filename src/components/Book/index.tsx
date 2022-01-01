@@ -2,7 +2,7 @@ import React from 'react';
 import { ICardProps } from 'components/UI-Elements/Card';
 import { useParams } from 'react-router-dom';
 
-const Book = ({ title, description, tags, image, author }: ICardProps) => {
+const Book = ({ title, description, tags, image, authors }: ICardProps) => {
 	// get book id from use params
 	const { id } = useParams<{ id: string }>();
 
@@ -24,7 +24,7 @@ const Book = ({ title, description, tags, image, author }: ICardProps) => {
 		<div className="p-10 pl-auto rounded  overflow-hidden shadow-lg">
 			<h2 className="text-2xl mb-5">Book Specific Page</h2>
 			<img
-				className="rounded-sm w-96"
+				className="rounded-lg w-96"
 				src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
 				alt={title}
 			/>
