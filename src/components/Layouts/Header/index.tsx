@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AppContext from 'AppContext';
 import { toast } from 'react-toastify';
-
-// TODO: to add a link to the header, add the following code:
 
 const Header = () => {
 	const { setQuery } = React.useContext(AppContext);
 
 	const [localQuery, setLocalQuery] = React.useState('');
 	const [handleSearch, setHandleSearch] = React.useState(false);
+
+	const location = useLocation();
+	const isBookPage = location.pathname.includes('/book/');
 
 	const clickedSearch = () => {
 		setHandleSearch(true);
@@ -21,17 +22,36 @@ const Header = () => {
 		});
 	};
 
+	const notifyToGoToHomePage = () => {
+		toast.info('Please ensure that you are on the home page to search', {
+			position: 'bottom-right',
+		});
+	};
+
+	const onBookingPageAndTriesToSearch =
+		localQuery == '' && handleSearch && isBookPage;
+
+	const onHomePageAndCanSearch =
+		handleSearch && localQuery != '' && !isBookPage;
+
+	const onHomePageAndCantSearch =
+		localQuery == '' && handleSearch && !isBookPage;
+
 	React.useEffect(() => {
-		if (localQuery == '' && handleSearch) {
+		if (onHomePageAndCantSearch) {
 			notifySearchEmpty();
 		}
 
-		if (handleSearch && localQuery != '') {
+		if (onBookingPageAndTriesToSearch) {
+			notifyToGoToHomePage();
+		}
+
+		if (onHomePageAndCanSearch) {
 			setQuery ? setQuery(localQuery) : null;
 			setLocalQuery('');
 		}
 		setHandleSearch(false);
-	}, [handleSearch]);
+	}, [handleSearch, isBookPage]);
 
 	return (
 		<header className="flex items-center justify-between flex-wrap bg-gray-800 p-6">
@@ -60,7 +80,7 @@ const Header = () => {
 						placeholder="Search..."
 						onChange={(e) => setLocalQuery(e.target.value)}
 						value={localQuery}
-						// TODO clear input after search
+						disabled={isBookPage}
 					/>
 					<button
 						onClick={clickedSearch}
