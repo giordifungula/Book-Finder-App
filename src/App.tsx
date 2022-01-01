@@ -7,6 +7,7 @@ import Footer from 'components/Layouts/Footer';
 import RoutesApp from 'components/App';
 import AppContext from 'AppContext';
 import { IBooks } from 'interfaces/books';
+import { API_KEY } from 'lib/keys';
 
 function App() {
 	// set is loading state to false
@@ -16,9 +17,7 @@ function App() {
 	// set books array to empty array
 	const [books, setBooks] = React.useState<null | IBooks>(null);
 
-	// TODO set error also
-
-	const API_KEY = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
+	// TODO set error also in state
 
 	// TODO add pagination
 	// TODO add search
