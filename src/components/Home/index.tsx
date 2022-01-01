@@ -5,7 +5,6 @@ import Card from 'components/UI-Elements/Card';
 
 const Home = () => {
 	const { books, query, isLoading } = React.useContext(AppContext);
-	console.log('books', books);
 	return (
 		<div>
 			<div
