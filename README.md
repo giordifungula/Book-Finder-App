@@ -36,6 +36,10 @@ Why am I building this application
 -   React
 -   React Scroll
 
+# Deployed App
+
+-   https://book-finder-giordi.netlify.app/
+
 # Author
 
 Giordi Fungula
