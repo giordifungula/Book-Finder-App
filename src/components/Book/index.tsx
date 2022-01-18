@@ -30,8 +30,6 @@ const Book = () => {
 		}
 	};
 
-	// TODO Display more book data later?
-
 	return (
 		<div className="p-10 pl-auto rounded  overflow-hidden shadow-lg">
 			{isLoading === true ? (
